@@ -1,0 +1,22 @@
+{
+  "name": "rabbit-scripts",
+  "version": "1.0.0",
+  "description": "webpack build",
+  "main": "index.js",
+  "bin": {
+    "rabbit-scripts": "./bin/cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "build"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cross-spawn": "^7.0.3",
+    "html-webpack-plugin": "^5.5.3",
+    "webpack": "^5.89.0"
+  }
+}
