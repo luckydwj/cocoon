@@ -1,26 +1,25 @@
 const webpack = require("webpack");
-const config = require("../config/webpack.config");
-config()
-// const compiler = webpack(config);
-// compiler.run((err, stats) => {
-//   if (err) {
-//     console.error(err.stack || err);
-//     if (err.details) {
-//       console.error(err.details);
-//     }
-//     return;
-//   }
-//   const info = stats.toJson();
+const config = require("../config/webpack.prod.js");
+const compiler = webpack(config);
 
-//   if (stats.hasErrors()) {
-//     console.error(info.errors);
-//   }
+compiler.run((err, stats) => {
+  if (err) {
+    console.error(err.stack || err);
+    if (err.details) {
+      console.error(err.details);
+    }
+    return;
+  }
+  const info = stats.toJson();
 
-//   if (stats.hasWarnings()) {
-//     console.warn(info.warnings);
-//   }
+  if (stats.hasErrors()) {
+    console.error(info.errors);
+  }
 
-//   compiler.close((closeErr) => {
-//     console.error(closeErr);
-//   });
-// });
+  if (stats.hasWarnings()) {
+    console.warn(info.warnings);
+  }
+  compiler.close((closeErr) => {
+    console.error(closeErr);
+  });
+});
