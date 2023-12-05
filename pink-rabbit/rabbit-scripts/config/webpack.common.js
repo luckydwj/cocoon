@@ -1,5 +1,5 @@
 const paths = require("./paths");
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: paths.appIndexJs,
@@ -9,33 +9,44 @@ module.exports = {
     clean: true,
   },
   plugins: [
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: paths.publicPath,
+    }),
   ],
   module: {
     rules: [
       {
         test: /\.(css|less)$/i,
-        use: ['style-loader', 'css-loader'],
+        exclude: /(node_modules)/,
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: 'asset/resource',
+        exclude: /(node_modules)/,
+        type: "asset/resource",
       },
-    ],
-    },
-    optimization: {
-        moduleIds: "deterministic",
-        runtimeChunk: "single",
-        usedExports: true,
-        splitChunks: {
-          cacheGroups: {
-            chunks: 'all',
-            vendor: {
-              test: /[\\/]node_modules[\\/]/,
-              name: 'vendors',
-              chunks: 'all',
-            },
-          },
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: "babel-loader",
         },
       },
+    ],
+  },
+  optimization: {
+    moduleIds: "deterministic",
+    runtimeChunk: "single",
+    usedExports: true,
+    splitChunks: {
+      cacheGroups: {
+        chunks: "all",
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: "vendors",
+          chunks: "all",
+        },
+      },
+    },
+  },
 };
