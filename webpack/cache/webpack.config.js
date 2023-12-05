@@ -15,7 +15,7 @@ module.exports = {
   },
   optimization: {
     moduleIds: 'deterministic',
-    runtimeChunk: 'single',
+    runtimeChunk: 'single', //为runtime创建一个bundle
     splitChunks: {
       cacheGroups: {
         vendor: {

@@ -22,7 +22,7 @@ program
     // 使用 figlet 绘制 Logo
     console.log(
       "\r\n" +
-        figlet.textSync("rabbit", {
+        figlet.textSync("dwj", {
           font: "Ghost",
           horizontalLayout: "default",
           verticalLayout: "default",

@@ -40,7 +40,8 @@ class Generator {
     //   requestUrl, // 参数1: 下载地址
     //   path.resolve(process.cwd(), this.targetDir) // 参数2: 创建位置
     // );
-      console.log("=====download====");
+    console.log("=====download====");
+    // 1、安装webpack打包工具 根据用户选择安装对应的技术栈
   }
 
   // 核心创建逻辑
