@@ -3,7 +3,7 @@ const chalk = require('chalk')
 const fs = require("fs-extra");
 const path = require("path")
 const spawn = require('cross-spawn')
-// const {spawn } =require('child_process')
+const os = require('os');
 
 
 // 添加加载动画
@@ -35,12 +35,11 @@ class Generator {
 
   async downloadTemplate() {
     const sourceDir = path.resolve(process.cwd(), "react-template");
-    console.log("===process.cwd()====", sourceDir);
     const targetDir = path.resolve(process.cwd(), this.targetDir);
     // fs.copy(sourceDir, targetDir)
     await wrapLoading(
       fs.copy, // 异步copy方法
-      "waiting download template", // 加载提示信息
+      "waiting download source", // 加载提示信息
       sourceDir, // 参数1: 下载地址
       targetDir // 参数2: 创建位置
     );
@@ -48,10 +47,11 @@ class Generator {
 
   downloadDependencies() {
     // 定义需要按照的依赖
-    const dependencies = ["react", "react-dom"];
+    const dependencies = ["react", "react-dom","rabbit-scripts"];
     const targetDir = path.resolve(process.cwd(), this.targetDir);
+    const appName = this.name;
     // 执行安装
-    const child = spawn("npm", ["install", "-D"].concat(dependencies), {
+    const child = spawn("npm", ["install", "-save"].concat(dependencies), {
       cwd:targetDir,
       stdio: "inherit",
     });
@@ -63,53 +63,40 @@ class Generator {
       }
       // 执行成功
       else {
+        const appPackage = require(path.join(targetDir, 'package.json'));
+        appPackage.name = appName;
+        appPackage.scripts= {
+          dev: "rabbit-scripts start",
+          build: "rabbit-scripts build",
+        }
+        fs.writeFileSync(
+          path.join(targetDir, 'package.json'),
+          JSON.stringify(appPackage, null, 2) + os.EOL
+        )
         console.log(chalk.cyan("Install finished"));
+        console.log(`\r\nSuccessfully created project ${chalk.cyan(appName)}`);
+        console.log(`\r\n  cd ${chalk.cyan(appName)}`);
+        console.log("  npm run dev\r\n");
       }
     });
   }
 
-  cdTargeDir() {
-    const targetDir = path.resolve(process.cwd(), this.targetDir);
-    // console.log("===cdTargeDir=====",process);
-    // exec(`cd ${targetDir}`)
-    // exec("ls")
-    // const child = spawn("cd", [targetDir]);
-    // child.on("close", (data) => {
-    //   console.log("===close======", data);
-    //   this.downloadDependencies()
-    // });
-    // child.on("error", (error) => {
-    //   console.log("===error======", error);
-    // });
-    
-    // child.on("exit", (code,signal) => {
-    //   console.log(`c333hild process exited with code ${code} and signal ${signal}`);
-    // });
-    // const child = spawn(
-    //   targetDir,
-    //   [...args, '-e', source, '--', JSON.stringify(data)],
-    //   { cwd, stdio: 'inherit' }
-    // );
-  
-  }
-
   // 核心创建逻辑
   async create() {
-    //1、 下载模版
     await this.downloadTemplate();
-    this.downloadDependencies()
-    // 2、进入到模版路径
-
-    // this.cdTargeDir();
-    //3、执行npm install
-
-    //  await wrapLoading(
-    //   this.downloadDependencies, // 异步copy方法
-    //   "waiting download template", // 加载提示信息
-    // );
-    console.log(`\r\nSuccessfully created project ${chalk.cyan(this.name)}`);
-    console.log(`\r\n  cd ${chalk.cyan(this.name)}`);
-    console.log("  npm run dev\r\n");
+     this.downloadDependencies()
+    // const appPackage = require(path.join(this.targetDir, 'package.json'));
+    // console.log("====appPackage===",appPackage);
+    //     appPackage.name=this.name
+    //     appPackage.scripts= {
+    //       start: "rabbit-scripts start",
+    //       build: "rabbit-scripts build",
+    //     }
+    //     fs.writeFileSync(
+    //       path.join(this.targetDir, 'package.json'),
+    //       JSON.stringify(appPackage, null, 2) + os.EOL
+    //     )
+    
   }
 }
 

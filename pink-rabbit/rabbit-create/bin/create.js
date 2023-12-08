@@ -38,10 +38,10 @@ module.exports = async function (name, options) {
       } else if (action === 'overwrite') { 
         console.log(`\r\nRemoving...`)
         await fs.remove(targetAir)
+        console.log(`\r\nRemoving finish...`)
       }
     }
   }
-  console.log("====targetAir===",targetAir);
   const generator = new Generator(name, targetAir)
   generator.create()
 }

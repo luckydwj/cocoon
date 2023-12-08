@@ -1,3 +1,4 @@
+import React from 'react'
 import logo from './logo.png';
 import './App.css';
 
@@ -9,7 +10,7 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <span>Hello React</span>
+        <span>Hello Ribbit </span>
       </header>
     </div>
   );
