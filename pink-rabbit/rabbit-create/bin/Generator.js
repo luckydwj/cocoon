@@ -34,8 +34,10 @@ class Generator {
   }
 
   async downloadTemplate() {
-    const sourceDir = path.resolve(process.cwd(), "react-template");
-    const targetDir = path.resolve(process.cwd(), this.targetDir);
+    console.log("===__dirname=====",__dirname);
+    const sourceDir = path.resolve(__dirname, "../react-template");
+    console.log("===sourceDir=====",sourceDir);
+    const targetDir = this.targetDir
     // fs.copy(sourceDir, targetDir)
     await wrapLoading(
       fs.copy, // 异步copy方法
@@ -48,7 +50,7 @@ class Generator {
   downloadDependencies() {
     // 定义需要按照的依赖
     const dependencies = ["react", "react-dom","rabbit-scripts"];
-    const targetDir = path.resolve(process.cwd(), this.targetDir);
+    const targetDir = this.targetDir;
     const appName = this.name;
     // 执行安装
     const child = spawn("npm", ["install", "-save"].concat(dependencies), {
