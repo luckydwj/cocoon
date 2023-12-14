@@ -34,9 +34,7 @@ class Generator {
   }
 
   async downloadTemplate() {
-    console.log("===__dirname=====",__dirname);
-    const sourceDir = path.resolve(__dirname, "../react-template");
-    console.log("===sourceDir=====",sourceDir);
+    const sourceDir = path.join(__dirname, "../react-template");
     const targetDir = this.targetDir
     // fs.copy(sourceDir, targetDir)
     await wrapLoading(
@@ -67,10 +65,10 @@ class Generator {
       else {
         const appPackage = require(path.join(targetDir, 'package.json'));
         appPackage.name = appName;
-        appPackage.scripts= {
+        appPackage.scripts= Object.assign(appPackage,{
           dev: "rabbit-scripts start",
           build: "rabbit-scripts build",
-        }
+        })
         fs.writeFileSync(
           path.join(targetDir, 'package.json'),
           JSON.stringify(appPackage, null, 2) + os.EOL
