@@ -47,7 +47,7 @@ class Generator {
 
   downloadDependencies() {
     // 定义需要按照的依赖
-    const dependencies = ["react", "react-dom","rabbit-scripts@1.0.1"];
+    const dependencies = ["react", "react-dom","rabbit-scripts"];
     const targetDir = this.targetDir;
     const appName = this.name;
     // 执行安装
@@ -65,7 +65,7 @@ class Generator {
       else {
         const appPackage = require(path.join(targetDir, 'package.json'));
         appPackage.name = appName;
-        appPackage.scripts= Object.assign(appPackage,{
+        appPackage.scripts = Object.assign({},appPackage.scripts,{
           dev: "rabbit-scripts start",
           build: "rabbit-scripts build",
         })
@@ -73,6 +73,7 @@ class Generator {
           path.join(targetDir, 'package.json'),
           JSON.stringify(appPackage, null, 2) + os.EOL
         )
+       
         console.log(chalk.cyan("Install finished"));
         console.log(`\r\nSuccessfully created project ${chalk.cyan(appName)}`);
         console.log(`\r\n  cd ${chalk.cyan(appName)}`);
