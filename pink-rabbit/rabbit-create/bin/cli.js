@@ -3,6 +3,7 @@ const { program } = require("commander");
 const figlet = require("figlet");
 const chalk = require("chalk");
 const create = require("./create");
+const path = require("path")
 
 program
   .command("create <app-name>")
@@ -11,9 +12,8 @@ program
   .action((name, options) => {
     create(name,options)
   });
-
 program
-  .version(`v${require("../../rabbit-scripts/package.json").version}`)
+  .version(`v${require(path.join(__dirname,"../package.json")).version}`)
   .usage("<command> [option]");
 
 program
