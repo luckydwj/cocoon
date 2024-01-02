@@ -47,7 +47,7 @@ class Generator {
 
   downloadDependencies() {
     // 定义需要按照的依赖
-    const dependencies = ["react", "react-dom","rabbit-scripts"];
+    const dependencies = ["react", "react-dom","rabbit-scripts@1.0.1"];
     const targetDir = this.targetDir;
     const appName = this.name;
     // 执行安装
