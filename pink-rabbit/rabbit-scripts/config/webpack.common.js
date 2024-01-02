@@ -16,9 +16,18 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(css|less)$/i,
+        test: /\.(css)$/i,
         exclude: /(node_modules)/,
         use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.less$/i,
+        use: [
+          // compiles Less to CSS
+          'style-loader',
+          'css-loader',
+          'less-loader',
+        ],
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,

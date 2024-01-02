@@ -1,0 +1,7 @@
+.app{
+    color: red;
+}
+.app :global .test{
+    background-color: #00ff00;
+}
+

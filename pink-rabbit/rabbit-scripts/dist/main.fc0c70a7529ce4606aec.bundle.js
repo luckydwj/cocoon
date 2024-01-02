@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkrabbit_scripts=self.webpackChunkrabbit_scripts||[]).push([[179],{579:(e,t,r)=>{var s=r(294);r(745).createRoot(document.getElementById("root")).render(s.createElement("div",null,"Hello, world!1111"))}},e=>{e.O(0,[216],(()=>(579,e(e.s=579)))),e.O()}]);
